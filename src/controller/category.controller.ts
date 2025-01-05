@@ -9,7 +9,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { CategoryInterface } from 'src/interface/category.interface';
-import { CategoryModel } from 'src/model';
+import { CategoryModel, UserModel } from 'src/model';
 import { CategoryService } from 'src/service/category.service';
 
 @Controller('category')
@@ -31,6 +31,7 @@ export class CategoryController {
     @Body() model: CategoryModel,
     @Request() req,
   ): Promise<CategoryInterface> {
+    model.user = new UserModel();
     model.user.id = req.user.id;
     return this.service.create(model);
   }

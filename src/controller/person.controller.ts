@@ -9,7 +9,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { PersonInterface } from 'src/interface/person.interface';
-import { PersonModel } from 'src/model';
+import { PersonModel, UserModel } from 'src/model';
 import { PersonService } from 'src/service/person.service';
 
 @Controller('person')
@@ -28,6 +28,7 @@ export class PersonController {
 
   @Post()
   create(@Body() model: PersonModel, @Request() req): Promise<PersonInterface> {
+    model.user = new UserModel();
     model.user.id = req.user.id;
     return this.service.create(model);
   }
