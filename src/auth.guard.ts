@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
     if (!bearer) return false;
     console.log(bearer);
     if (!this.jwtService.verify(bearer)) return false;
-    const userId = this.jwtService.decode(bearer) as string;
+    const userId = this.jwtService.decode(bearer) as { id: string };
     request.user = { id: userId };
     return true;
   }

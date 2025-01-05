@@ -29,9 +29,12 @@ export class UserController {
     if (!user) return { message: 'User not found!', token: '' };
     const passwordMatch = bcrypt.compareSync(model.password, user.password);
     if (!passwordMatch) return { message: "Password didn't match!", token: '' };
-    const token = this.jwtService.sign(user.id, {
-      secret: process.env.JWT_SECRET,
-    });
+    const token = this.jwtService.sign(
+      { id: user.id },
+      {
+        secret: process.env.JWT_SECRET,
+      },
+    );
     return { message: 'Login Successfull!', token };
   }
 
@@ -39,9 +42,12 @@ export class UserController {
   async singin(@Body() model: UserModel): Promise<AuthResponse> {
     model.password = bcrypt.hashSync(model.password, 10);
     const user = await this.service.create(model);
-    const token = this.jwtService.sign(user.id, {
-      secret: process.env.JWT_SECRET,
-    });
+    const token = this.jwtService.sign(
+      { id: user.id },
+      {
+        secret: process.env.JWT_SECRET,
+      },
+    );
     return { message: 'Account created successfully!', token };
   }
 }
