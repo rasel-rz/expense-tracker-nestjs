@@ -44,7 +44,12 @@ import { EntryController } from './controller/entry.controller';
       synchronize: false,
       useUTC: true,
       logging: true,
-      ssl: true,
+      ssl:
+        process.env.NODE_ENV === 'production'
+          ? {
+              rejectUnauthorized: false,
+            }
+          : false,
     }),
     TypeOrmModule.forFeature([Category, Entry, Person, User]),
   ],

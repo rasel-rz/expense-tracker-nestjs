@@ -10,7 +10,12 @@ export const AppDataSource = new DataSource({
   username: DB_USER,
   password: DB_PASS,
   database: DB_NAME,
-  ssl: true,
+  ssl:
+    NODE_ENV === 'production'
+      ? {
+          rejectUnauthorized: false,
+        }
+      : false,
   entities: ['src/entity/**.ts'],
   migrations: ['src/migrations/*-mig.ts'],
 });
