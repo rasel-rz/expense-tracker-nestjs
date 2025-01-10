@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
   ssl:
     NODE_ENV === 'production'
       ? {
-          rejectUnauthorized: false,
+          ca: process.env.DB_CERT,
         }
       : false,
   entities: ['src/entity/**.ts'],

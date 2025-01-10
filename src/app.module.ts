@@ -47,7 +47,7 @@ import { EntryController } from './controller/entry.controller';
       ssl:
         process.env.NODE_ENV === 'production'
           ? {
-              rejectUnauthorized: false,
+              ca: process.env.DB_CERT,
             }
           : false,
     }),
