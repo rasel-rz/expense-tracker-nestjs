@@ -44,6 +44,7 @@ import { EntryController } from './controller/entry.controller';
       synchronize: false,
       useUTC: true,
       logging: true,
+      ssl: true,
     }),
     TypeOrmModule.forFeature([Category, Entry, Person, User]),
   ],
