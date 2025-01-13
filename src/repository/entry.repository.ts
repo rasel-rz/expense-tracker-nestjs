@@ -10,6 +10,7 @@ export class EntryRepository implements EntryRepositoryInterface {
   constructor(@InjectRepository(Entry) private entryModel: Repository<Entry>) {}
   async findAll(): Promise<EntryInterface[]> {
     const entries = await this.entryModel.find({
+      order: { updated_at: 'ASC' },
       relations: ['categories', 'persons'],
     });
     return entries;
